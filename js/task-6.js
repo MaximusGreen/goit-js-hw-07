@@ -22,8 +22,9 @@ createBtn.addEventListener('click', () => {
 destroyBtn.addEventListener('click', destroyBoxes);
 
 function createBoxes(amount) {
+  const fragment = document.createDocumentFragment();
+  let size = 30;
   const boxes = [];
-    let size = 30;
   for (let i = 0; i < amount; i++) {
     const box = document.createElement('div');
     box.style.width = `${size}px`;
@@ -31,19 +32,15 @@ function createBoxes(amount) {
     box.style.backgroundColor = getRandomHexColor();
     boxes.push(box);
     size += 10;
+    fragment.appendChild(box);
   }
-  return boxes;
+  return { fragment, boxes };
 }
 
-function appendBoxesToContainer(boxes) {
-  boxes.forEach(box => {
-    boxesContainer.appendChild(box);
-  });
+function appendBoxesToContainer({ fragment }) {
+  boxesContainer.appendChild(fragment);
 }
 
 function destroyBoxes() {
   boxesContainer.innerHTML = '';
 }
-
-
-
